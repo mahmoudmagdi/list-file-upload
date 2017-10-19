@@ -5,13 +5,13 @@ import io.loefflefarn.list.fileupload.processor.FirstNameDemoObjectUploadProcess
 import io.loefflefarn.list.fileupload.processor.LastNameDemoObjectUploadProcessor;
 
 public class DemoObject {
-    @FileUpload(FirstNameDemoObjectUploadProcessor.class)
+    @FileUpload(header = "first-name", converter = FirstNameDemoObjectUploadProcessor.class)
     private String firstName;
 
-    @FileUpload(LastNameDemoObjectUploadProcessor.class)
+    @FileUpload(header = "last-name", converter = LastNameDemoObjectUploadProcessor.class)
     private String lastName;
 
-    @FileUpload(EmailDemoObjectUploadProcessor.class)
+    @FileUpload(header = "email", converter = EmailDemoObjectUploadProcessor.class)
     private String email;
 
     public String getFirstName() {

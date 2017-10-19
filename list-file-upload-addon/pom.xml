@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.loefflefarn</groupId>
   <artifactId>list-file-upload</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
   <name>list-file-upload</name>
   <url>https://github.com/loefflefarn/list-file-upload</url>
   <description>Vaddin List-File-Upload Addon</description>
@@ -17,7 +17,7 @@
     <!-- Parser -->
     <texin.version>0.3.3-RELEASE</texin.version>
     <!-- Vaadin -->
-    <vaadin.version>8.1.2</vaadin.version>
+    <vaadin.version>8.1.5</vaadin.version>
   </properties>
 
   <scm>
@@ -92,7 +92,6 @@
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
-          <outputEncoding>UTF-8</outputEncoding>
         </configuration>
       </plugin>
       <plugin>

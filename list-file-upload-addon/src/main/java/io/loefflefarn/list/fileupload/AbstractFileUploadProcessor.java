@@ -1,18 +1,13 @@
 package io.loefflefarn.list.fileupload;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-
 import com.itelg.texin.domain.exception.NoParserAppliedException;
 import com.itelg.texin.domain.exception.ParsingFailedException;
 import com.itelg.texin.in.processor.AbstractImportProcessor;
 import com.vaadin.ui.Upload;
-
 import io.loefflefarn.list.fileupload.domain.FileParseException;
 import io.loefflefarn.list.fileupload.domain.FileUploadException;
+
+import java.io.*;
 
 public abstract class AbstractFileUploadProcessor implements Upload.Receiver, Upload.SucceededListener {
     private static final long serialVersionUID = -2996951785928913217L;
@@ -62,11 +57,6 @@ public abstract class AbstractFileUploadProcessor implements Upload.Receiver, Up
 
     public void setSucceededHandler(SucceededHandler succeededHandler) {
         this.succeededHandler = succeededHandler;
-    }
-
-    @FunctionalInterface
-    public interface ItemParsedHandler<T> {
-        void handle(T item);
     }
 
     @FunctionalInterface

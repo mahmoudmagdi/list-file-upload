@@ -38,19 +38,34 @@ Example:
 
 ```java
 public class DemoObject {
-    @FileUpload(FirstNameDemoObjectUploadProcessor.class)
+    @FileUpload(header = "first-name", converter = FirstNameDemoObjectUploadProcessor.class)
     private String firstName;
 
-    @FileUpload(LastNameDemoObjectUploadProcessor.class)
+    @FileUpload(header = "last-name", converter = LastNameDemoObjectUploadProcessor.class)
     private String lastName;
 
-    @FileUpload(EmailDemoObjectUploadProcessor.class)
+    @FileUpload(header = "email", converter = EmailDemoObjectUploadProcessor.class)
     private String email;
     
     [...]
 }
 ```
 
+File cell processor example:
+```java
+public class FirstNameDemoObjectUploadProcessor implements FileCellProcessor<DemoObject> {
+    @Override
+    public void process(DemoObject data, Cell cell) throws ContentValidationException {
+        String value = cell.getStringValue();
+
+        if (StringUtils.isNotBlank(value)) {
+            data.setFirstName(value);
+        } else {
+            throw new ContentValidationException("Field First-Name is required");
+        }
+    }
+}
+```
 ### Simple
 
 In the Vaadin UI, you must initialize the `SimpleFileUploadProcessor` and specify what should happen in case of a fault-free or incorrect file upload. 
