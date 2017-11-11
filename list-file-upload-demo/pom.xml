@@ -45,6 +45,10 @@
     <vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
     <vaadin.widgetset.mode>local</vaadin.widgetset.mode>
 
+    <!-- Testing -->
+    <jacoco.version>0.7.8</jacoco.version>
+    <coveralls.version>4.2.0</coveralls.version>
+
     <!-- Plugin -->
     <jetty.plugin.version>9.3.9.v20160517</jetty.plugin.version>
   </properties>
@@ -156,6 +160,26 @@
         <configuration>
           <scanIntervalSeconds>2</scanIntervalSeconds>
         </configuration>
+      </plugin>
+
+      <!-- TEST AND COVERAGE -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.version}</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.eluder.coveralls</groupId>
+        <artifactId>coveralls-maven-plugin</artifactId>
+        <version>${coveralls.version}</version>
       </plugin>
     </plugins>
   </build>
