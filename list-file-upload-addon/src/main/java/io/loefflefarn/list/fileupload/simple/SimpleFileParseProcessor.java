@@ -1,8 +1,12 @@
 package io.loefflefarn.list.fileupload.simple;
 
+import io.loefflefarn.list.fileupload.domain.FileParseException;
+import io.loefflefarn.list.fileupload.domain.FileUpload;
+import io.loefflefarn.list.fileupload.domain.FileUploadException;
+
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.itelg.texin.domain.Cell;
 import com.itelg.texin.domain.ImportError;
@@ -11,10 +15,6 @@ import com.itelg.texin.domain.exception.ContentValidationException;
 import com.itelg.texin.domain.exception.NoParserAppliedException;
 import com.itelg.texin.in.parser.CellProcessor;
 import com.itelg.texin.in.processor.SimpleImportProcessor;
-
-import io.loefflefarn.list.fileupload.domain.FileParseException;
-import io.loefflefarn.list.fileupload.domain.FileUpload;
-import io.loefflefarn.list.fileupload.domain.FileUploadException;
 
 public class SimpleFileParseProcessor<T> extends SimpleImportProcessor<T> {
     private final Class<? super T> type;
@@ -47,30 +47,35 @@ public class SimpleFileParseProcessor<T> extends SimpleImportProcessor<T> {
     }
 
     private void mapCell(T item, Cell cell) {
-        for (CellProcessor<T> processor : getProcessors(item)) {
-            if (processor.applies(cell)) {
+        getProcessors(item).forEach((header, converter) -> {
+            if (cell.getColumnHeader().equalsIgnoreCase(header)) {
                 try {
-                    processor.process(item, cell);
+                    converter.process(item, cell);
                 } catch (ContentValidationException e) {
                     addImportError(new ImportError(cell, e.getMessage()));
                 }
 
                 isAnyCellProcessorApplied = true;
             }
-        }
+        });
     }
 
     @SuppressWarnings("unchecked")
-    private List<CellProcessor<T>> getProcessors(T item) {
+    private Map<String, CellProcessor<T>> getProcessors(T item) {
         try {
-            List<CellProcessor<T>> processors = new ArrayList<>();
+            Map<String, CellProcessor<T>> processors = new HashMap<>();
+
             for (Field field : item.getClass().getDeclaredFields()) {
+                field.setAccessible(true);
+
                 if (field.isAnnotationPresent(FileUpload.class)) {
                     FileUpload upload = field.getAnnotation(FileUpload.class);
-                    processors.add((CellProcessor<T>) upload.value().newInstance());
+                    processors.put(upload.header(), (CellProcessor<T>) upload.converter().newInstance());
                 }
             }
+
             return processors;
+
         } catch (InstantiationException | IllegalAccessException e) {
             throw new FileUploadException(e);
         }

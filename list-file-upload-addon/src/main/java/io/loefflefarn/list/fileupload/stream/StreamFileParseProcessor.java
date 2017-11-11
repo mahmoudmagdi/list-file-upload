@@ -1,8 +1,12 @@
 package io.loefflefarn.list.fileupload.stream;
 
+import io.loefflefarn.list.fileupload.domain.FileParseException;
+import io.loefflefarn.list.fileupload.domain.FileUpload;
+import io.loefflefarn.list.fileupload.domain.FileUploadException;
+
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.itelg.texin.domain.Cell;
 import com.itelg.texin.domain.ImportError;
@@ -11,9 +15,6 @@ import com.itelg.texin.domain.exception.ContentValidationException;
 import com.itelg.texin.domain.exception.NoParserAppliedException;
 import com.itelg.texin.in.parser.CellProcessor;
 import com.itelg.texin.in.processor.StreamingImportProcessor;
-
-import io.loefflefarn.list.fileupload.domain.FileParseException;
-import io.loefflefarn.list.fileupload.domain.FileUpload;
 
 public class StreamFileParseProcessor<T> extends StreamingImportProcessor {
     private final Class<? super T> type;
@@ -24,11 +25,11 @@ public class StreamFileParseProcessor<T> extends StreamingImportProcessor {
 
     private boolean isAnyCellProcessorApplied = false;
 
-    private boolean isErrorOccured = false;
+    private boolean isErrorOccurred = false;
 
     public StreamFileParseProcessor(final Class<? super T> type,
-            final StreamFileUploadSuccessListener<T> successListener,
-            final StreamFileUploadFailureListener failureListener) {
+                                    final StreamFileUploadSuccessListener<T> successListener,
+                                    final StreamFileUploadFailureListener failureListener) {
         this.type = type;
         this.successListener = successListener;
         this.failureListener = failureListener;
@@ -49,7 +50,7 @@ public class StreamFileParseProcessor<T> extends StreamingImportProcessor {
                 throw new FileParseException(new NoParserAppliedException("No file-upload-processor applied"));
             }
 
-            if (!isErrorOccured) {
+            if (!isErrorOccurred) {
                 successListener.listen(item);
             }
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
@@ -58,33 +59,39 @@ public class StreamFileParseProcessor<T> extends StreamingImportProcessor {
     }
 
     private void mapCell(final T item, final Cell cell) {
-        for (CellProcessor<T> processor : getProcessors(item)) {
-            if (processor.applies(cell)) {
+        getProcessors(item).forEach((header, converter) -> {
+            if (cell.getColumnHeader().equalsIgnoreCase(header)) {
                 try {
-                    processor.process(item, cell);
+                    converter.process(item, cell);
                 } catch (ContentValidationException e) {
                     failureListener.listen(new ImportError(cell, e.getMessage()));
-                    isErrorOccured = true;
+                    isErrorOccurred = true;
                 }
 
                 isAnyCellProcessorApplied = true;
             }
-        }
+        });
     }
 
+
     @SuppressWarnings("unchecked")
-    private List<CellProcessor<T>> getProcessors(T item) {
+    private Map<String, CellProcessor<T>> getProcessors(T item) {
         try {
-            List<CellProcessor<T>> processors = new ArrayList<>();
+            Map<String, CellProcessor<T>> processors = new HashMap<>();
+
             for (Field field : item.getClass().getDeclaredFields()) {
+                field.setAccessible(true);
+
                 if (field.isAnnotationPresent(FileUpload.class)) {
                     FileUpload upload = field.getAnnotation(FileUpload.class);
-                    processors.add((CellProcessor<T>) upload.value().newInstance());
+                    processors.put(upload.header(), (CellProcessor<T>) upload.converter().newInstance());
                 }
             }
+
             return processors;
+
         } catch (InstantiationException | IllegalAccessException e) {
-            throw new FileParseException(e);
+            throw new FileUploadException(e);
         }
     }
 }

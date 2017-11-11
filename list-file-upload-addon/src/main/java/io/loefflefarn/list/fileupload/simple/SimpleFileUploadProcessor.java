@@ -7,8 +7,8 @@ public class SimpleFileUploadProcessor<T> extends AbstractFileUploadProcessor {
 
     @SuppressWarnings("unchecked")
     public SimpleFileUploadProcessor(final Class<? super T> type,
-            final SimpleFileUploadSuccessListener<T> successListener,
-            final SimpleFileUploadFailureListener failureListener) {
+                                     final SimpleFileUploadSuccessListener<T> successListener,
+                                     final SimpleFileUploadFailureListener failureListener) {
         super(new SimpleFileParseProcessor<>(type));
 
         setSucceededHandler((succeededEvent, parser) -> {

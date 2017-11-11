@@ -7,8 +7,10 @@ import java.lang.annotation.Target;
 
 import com.itelg.texin.in.parser.CellProcessor;
 
-@Target({ ElementType.METHOD, ElementType.FIELD })
+@Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FileUpload {
-    Class<? extends CellProcessor<?>> value();
+    String header();
+
+    Class<? extends CellProcessor<?>> converter();
 }
