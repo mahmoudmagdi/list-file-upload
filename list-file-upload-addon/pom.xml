@@ -8,7 +8,7 @@
   <artifactId>list-file-upload</artifactId>
   <version>1.2.0</version>
   <packaging>jar</packaging>
-  <name>list-file-upload-addon</name>
+  <name>list-file-upload</name>
   <description>List File Upload is used to upload Excel, Text or CSV files into a Vaadin application</description>
   <url>https://github.com/loefflefarn/list-file-upload</url>
 
@@ -88,6 +88,24 @@
   <build>
     <plugins>
       <!-- BUILD -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+            </manifest>
+            <manifestEntries>
+              <Vaadin-Package-Version>1</Vaadin-Package-Version>
+              <Implementation-Title>${project.name}</Implementation-Title>
+              <Implementation-Vendor>loefflefarn</Implementation-Vendor>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${maven-compiler-plugin.version}</version>
