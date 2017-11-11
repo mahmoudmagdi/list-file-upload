@@ -1,5 +1,11 @@
 package io.loefflefarn.list;
 
+import io.loefflefarn.list.fileupload.domain.DemoObject;
+import io.loefflefarn.list.fileupload.domain.FileParseException;
+import io.loefflefarn.list.fileupload.domain.FileUploadException;
+import io.loefflefarn.list.fileupload.simple.SimpleFileUploadProcessor;
+import io.loefflefarn.list.fileupload.stream.StreamFileUploadProcessor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +24,6 @@ import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Upload;
 import com.vaadin.ui.VerticalLayout;
-
-import io.loefflefarn.list.fileupload.domain.DemoObject;
-import io.loefflefarn.list.fileupload.domain.FileParseException;
-import io.loefflefarn.list.fileupload.domain.FileUploadException;
-import io.loefflefarn.list.fileupload.simple.SimpleFileUploadProcessor;
-import io.loefflefarn.list.fileupload.stream.StreamFileUploadProcessor;
 
 @Theme("mytheme")
 public class MyUI extends UI {
@@ -84,9 +84,9 @@ public class MyUI extends UI {
                     gridSimpleItems.addAll(items);
                     demoSimpleGrid.getDataProvider().refreshAll();
                 }, (event, errorItems) -> {
-                    gridSimpleErrorItems.addAll(errorItems);
-                    importErrorSimpleGrid.getDataProvider().refreshAll();
-                });
+            gridSimpleErrorItems.addAll(errorItems);
+            importErrorSimpleGrid.getDataProvider().refreshAll();
+        });
 
         Upload upload = new Upload("Choose file...", uploadProcessor);
         upload.addSucceededListener(uploadProcessor);
@@ -111,9 +111,9 @@ public class MyUI extends UI {
                     gridStreamItems.add(item);
                     demoStreamGrid.getDataProvider().refreshAll();
                 }, error -> {
-                    gridStreamErrorItems.add(error);
-                    importErrorStreamGrid.getDataProvider().refreshAll();
-                }, event -> Notification.show("Upload completed!"));
+            gridStreamErrorItems.add(error);
+            importErrorStreamGrid.getDataProvider().refreshAll();
+        }, event -> Notification.show("Upload completed!"));
 
         Upload upload = new Upload("Choose file...", uploadProcessor);
         upload.addSucceededListener(uploadProcessor);

@@ -1,36 +1,19 @@
-# List-File-Upload
+# List-File-Upload Addon
 
+[![Build Status](https://travis-ci.org/loefflefarn/list-file-upload.svg?branch=ISSUE-1)](https://travis-ci.org/loefflefarn/list-file-upload)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.loefflefarn/list-file-upload/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.loefflefarn/list-file-upload)
-[![Build Status](https://travis-ci.org/loefflefarn/list-file-upload.svg?branch=master)](https://travis-ci.org/loefflefarn/list-file-upload)
+[![Maintainability](https://api.codeclimate.com/v1/badges/cd2855534593489c6c4e/maintainability)](https://codeclimate.com/github/loefflefarn/list-file-upload/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/loefflefarn/list-file-upload/badge.svg?branch=master)](https://coveralls.io/github/loefflefarn/list-file-upload?branch=master)
 
 This addon is used to process a CSV, Excel or text file. To execute a clean processing, the corresponding variable (= Excel cell) must be annotated in the corresponding 
 domain class (Excel -> Java) with the fileUpload annotation. The FileUpload annotation must be passed to a FileUploadProcessor. This serves to carry out a test on the 
 corresponding, e.g. Excel cell. Further in the code examples.
 
-## Download release
+## How to use it
 
 Official releases of this add-on are available at Vaadin Directory. For Maven instructions, download and reviews, go to https://vaadin.com/directory#!addon/list-file-upload
 
-## Building and running demo
-
-````
-git clone git@github.com:loefflefarn/list-file-upload.git
-mvn clean install
-cd list-file-upload-demo
-mvn jetty:run
-````
-To see the demo, navigate to http://localhost:8080/
-
-## Issue tracking
-
-Issues for this add-on are tracked [here](https://github.com/loefflefarn/list-file-upload/issues). All bug reports and feature requests are welcome. 
-
-## Used dependencies
-
-For parsing CSV, Excel and text files - https://github.com/julian-eggers/texin
-
-## Configuration
+## How it works
 
 You must annotate variables that are to be set during the file upload with the annotation `@FileUpload()`.
 
@@ -109,3 +92,17 @@ Upload upload = new Upload("Choose file...", uploadProcessor);
 upload.addSucceededListener(uploadProcessor);
 rootLayout.addComponent(upload);
 ```
+
+## Try it with the demo
+
+````
+git clone git@github.com:loefflefarn/list-file-upload.git
+mvn clean install
+cd list-file-upload-demo
+mvn jetty:run
+````
+To see the demo, navigate to http://localhost:8080/
+
+## Contributing
+
+Issues for this add-on are tracked [here](https://github.com/loefflefarn/list-file-upload/issues). All bug reports and feature requests are welcome. 

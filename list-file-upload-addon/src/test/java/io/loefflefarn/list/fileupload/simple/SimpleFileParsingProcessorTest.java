@@ -1,15 +1,17 @@
 package io.loefflefarn.list.fileupload.simple;
 
-import com.itelg.texin.domain.Cell;
-import com.itelg.texin.domain.Row;
-import com.itelg.texin.domain.exception.ContentValidationException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import io.loefflefarn.list.fileupload.domain.FileCellProcessor;
 import io.loefflefarn.list.fileupload.domain.FileParseException;
 import io.loefflefarn.list.fileupload.domain.FileUpload;
+
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import com.itelg.texin.domain.Cell;
+import com.itelg.texin.domain.Row;
+import com.itelg.texin.domain.exception.ContentValidationException;
 
 public class SimpleFileParsingProcessorTest {
     private final SimpleFileParseProcessor<DemoObject> processor = new SimpleFileParseProcessor<>(DemoObject.class);

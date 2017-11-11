@@ -1,13 +1,13 @@
 package io.loefflefarn.list.fileupload.domain;
 
-import com.itelg.texin.in.parser.CellProcessor;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ ElementType.METHOD, ElementType.FIELD })
+import com.itelg.texin.in.parser.CellProcessor;
+
+@Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FileUpload {
     String header();

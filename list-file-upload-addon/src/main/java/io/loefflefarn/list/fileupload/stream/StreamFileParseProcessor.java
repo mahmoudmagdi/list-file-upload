@@ -1,12 +1,5 @@
 package io.loefflefarn.list.fileupload.stream;
 
-import com.itelg.texin.domain.Cell;
-import com.itelg.texin.domain.ImportError;
-import com.itelg.texin.domain.Row;
-import com.itelg.texin.domain.exception.ContentValidationException;
-import com.itelg.texin.domain.exception.NoParserAppliedException;
-import com.itelg.texin.in.parser.CellProcessor;
-import com.itelg.texin.in.processor.StreamingImportProcessor;
 import io.loefflefarn.list.fileupload.domain.FileParseException;
 import io.loefflefarn.list.fileupload.domain.FileUpload;
 import io.loefflefarn.list.fileupload.domain.FileUploadException;
@@ -14,6 +7,14 @@ import io.loefflefarn.list.fileupload.domain.FileUploadException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.itelg.texin.domain.Cell;
+import com.itelg.texin.domain.ImportError;
+import com.itelg.texin.domain.Row;
+import com.itelg.texin.domain.exception.ContentValidationException;
+import com.itelg.texin.domain.exception.NoParserAppliedException;
+import com.itelg.texin.in.parser.CellProcessor;
+import com.itelg.texin.in.processor.StreamingImportProcessor;
 
 public class StreamFileParseProcessor<T> extends StreamingImportProcessor {
     private final Class<? super T> type;

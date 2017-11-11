@@ -1,14 +1,18 @@
 package io.loefflefarn.list.fileupload.stream;
 
-import com.itelg.texin.domain.Cell;
-import com.itelg.texin.domain.Row;
-import com.itelg.texin.domain.exception.ContentValidationException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+
 import io.loefflefarn.list.fileupload.domain.FileCellProcessor;
 import io.loefflefarn.list.fileupload.domain.FileParseException;
 import io.loefflefarn.list.fileupload.domain.FileUpload;
+
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import com.itelg.texin.domain.Cell;
+import com.itelg.texin.domain.Row;
+import com.itelg.texin.domain.exception.ContentValidationException;
 
 public class StreamFileParsingProcessorTest {
     private StreamFileParseProcessor<DemoObject> processor;
