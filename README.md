@@ -1,6 +1,6 @@
 # List-File-Upload Addon
 
-[![Build Status](https://travis-ci.org/loefflefarn/list-file-upload.svg?branch=ISSUE-1)](https://travis-ci.org/loefflefarn/list-file-upload)
+[![Build Status](https://travis-ci.org/loefflefarn/list-file-upload.svg?branch=master)](https://travis-ci.org/loefflefarn/list-file-upload)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.loefflefarn/list-file-upload/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.loefflefarn/list-file-upload)
 [![Maintainability](https://api.codeclimate.com/v1/badges/cd2855534593489c6c4e/maintainability)](https://codeclimate.com/github/loefflefarn/list-file-upload/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/loefflefarn/list-file-upload/badge.svg?branch=master)](https://coveralls.io/github/loefflefarn/list-file-upload?branch=master)
